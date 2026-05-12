@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Medien Memory</title>
+<link href="https://fonts.googleapis.com/css2?family=Schoolbell&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --green:#2d7a1f;
   --green-dark:#1a5210;
   --green-light:#e8f5e3;
-  --card-back:#2c3e50;
   --sidebar-w:230px;
   --radius:12px;
+  --font-school:'Patrick Hand',cursive;
 }
-body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4ee;height:100vh;overflow:hidden;display:flex}
+body{font-family:var(--font-school);background:#f0f4ee;height:100vh;overflow:hidden;display:flex}
 
-/* SIDEBAR */
 #sidebar{
   width:var(--sidebar-w);min-width:var(--sidebar-w);
   background:#fff;border-right:1.5px solid #dce8d6;
@@ -25,15 +25,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4ee;height:100vh
 }
 #sidebar.hidden{width:0;min-width:0;opacity:0;pointer-events:none;border:none}
 .sidebar-inner{padding:20px 16px;display:flex;flex-direction:column;gap:0;width:var(--sidebar-w)}
-.s-logo{font-size:22px;font-weight:700;color:var(--green);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.s-logo{font-size:22px;font-weight:700;color:var(--green);margin-bottom:18px;display:flex;align-items:center;gap:8px;font-family:var(--font-school)}
 .s-logo span{font-size:26px}
 .s-section{margin-bottom:18px}
-.s-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:9px}
+.s-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:9px;font-family:var(--font-school)}
 .opt-btn{
   display:block;width:100%;padding:10px 13px;margin-bottom:7px;
   border:1.5px solid #dce8d6;border-radius:9px;
-  background:#f8faf7;color:#333;font-size:15px;font-weight:400;
+  background:#f8faf7;color:#333;font-size:16px;font-weight:400;
   cursor:pointer;text-align:left;transition:all .15s;
+  font-family:var(--font-school);
 }
 .opt-btn:last-child{margin-bottom:0}
 .opt-btn.selected{background:var(--green-light);border-color:var(--green);color:var(--green);font-weight:600}
@@ -42,29 +43,27 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4ee;height:100vh
   margin:10px 16px 16px;padding:14px;
   border:none;border-radius:var(--radius);
   background:var(--green);color:#fff;
-  font-size:17px;font-weight:600;cursor:pointer;
+  font-size:18px;font-weight:600;cursor:pointer;
   transition:transform .1s,background .15s;
   display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--font-school);
 }
 #start-btn:hover{background:var(--green-dark)}
 #start-btn:active{transform:scale(.97)}
 
-/* MAIN BOARD */
 #board-wrap{
   flex:1;display:flex;flex-direction:column;align-items:center;
   justify-content:center;padding:20px;overflow:auto;
 }
 #status-bar{
-  font-size:16px;color:#555;margin-bottom:16px;min-height:24px;
-  text-align:center;transition:opacity .2s;
+  font-size:18px;color:#555;margin-bottom:16px;min-height:26px;
+  text-align:center;font-family:var(--font-school);
 }
 #board{display:grid;gap:10px;justify-content:center;align-content:center}
 
-/* CARDS */
 .card{
   width:100px;height:118px;cursor:pointer;
-  perspective:700px;position:relative;
-  transition:transform .1s;
+  perspective:700px;position:relative;transition:transform .1s;
 }
 .card:hover:not(.matched){transform:scale(1.04)}
 .card-inner{
@@ -77,53 +76,61 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4ee;height:100vh
   position:absolute;width:100%;height:100%;
   backface-visibility:hidden;border-radius:var(--radius);
   display:flex;align-items:center;justify-content:center;
-  border:1.5px solid rgba(255,255,255,.12);
   box-shadow:0 2px 8px rgba(0,0,0,.13);
 }
+
+/* RÜCKSEITE: hell, freundlich */
 .card-back{
-  background:var(--card-back);overflow:hidden;
+  background:#f0f7ff;
+  border:2px solid #b8d4f0;
+  overflow:hidden;
+  flex-direction:column;gap:6px;
 }
-.card-back svg{opacity:.18;position:absolute;inset:0;width:100%;height:100%}
-.card-back-icon{
+.back-dots{
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle,#c8dff5 1.2px,transparent 1.2px);
+  background-size:12px 12px;
+  opacity:.6;
+}
+.back-icon{
   position:relative;z-index:1;
-  width:46px;height:46px;opacity:.65;
-  filter:drop-shadow(0 1px 3px rgba(0,0,0,.4));
+  width:52px;height:52px;
+  color:#3a7cc4;
+  filter:drop-shadow(0 1px 2px rgba(58,124,196,.2));
 }
+
 .card-front{
   transform:rotateY(180deg);
-  background:#fff;flex-direction:column;gap:6px;
+  background:#fff;flex-direction:column;gap:5px;
   padding:8px 6px;
+  border:1.5px solid #dce8d6;
 }
 .card.matched .card-front{
   background:#e8f5e3;border-color:#6abf5e;
   box-shadow:0 0 0 2px #6abf5e,0 2px 8px rgba(0,0,0,.13);
 }
-.card-img{width:70px;height:70px;object-fit:contain}
+.card-img{width:72px;height:72px;object-fit:contain}
 .card-word{
-  font-size:12px;font-weight:600;color:#333;
+  font-size:14px;font-weight:600;color:#1a5210;
   text-align:center;line-height:1.2;padding:0 4px;
+  font-family:var(--font-school);
 }
 
-/* pattern for back */
-.dot-pattern{position:absolute;inset:0;width:100%;height:100%}
-
-/* EXIT BTN */
 #exit-btn{
   position:fixed;bottom:16px;right:16px;
   background:rgba(30,30,30,.7);color:#fff;
   border:none;border-radius:20px;
-  padding:8px 18px;font-size:13px;cursor:pointer;
-  z-index:100;display:none;backdrop-filter:blur(4px);
-  transition:background .2s;
+  padding:8px 18px;font-size:14px;cursor:pointer;
+  z-index:100;display:none;
+  font-family:var(--font-school);
 }
 #exit-btn:hover{background:rgba(30,30,30,.9)}
 
-/* WIN OVERLAY */
 #win-overlay{
   position:fixed;inset:0;
   background:rgba(0,0,0,.5);
   display:none;align-items:center;justify-content:center;
-  z-index:200;backdrop-filter:blur(3px);
+  z-index:200;
 }
 #win-box{
   background:#fff;border-radius:20px;
@@ -133,12 +140,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4ee;height:100vh
 }
 @keyframes popIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 #win-emoji{font-size:54px;margin-bottom:10px}
-#win-title{font-size:26px;font-weight:700;color:var(--green);margin-bottom:8px}
-#win-msg{font-size:16px;color:#555;margin-bottom:24px;line-height:1.5}
+#win-title{font-size:28px;font-weight:700;color:var(--green);margin-bottom:8px;font-family:var(--font-school)}
+#win-msg{font-size:17px;color:#555;margin-bottom:24px;line-height:1.5;font-family:var(--font-school)}
 #win-again{
   padding:12px 30px;border:none;border-radius:var(--radius);
   background:var(--green);color:#fff;
-  font-size:16px;font-weight:600;cursor:pointer;
+  font-size:17px;font-weight:600;cursor:pointer;
+  font-family:var(--font-school);
   transition:background .15s;
 }
 #win-again:hover{background:var(--green-dark)}
@@ -149,7 +157,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4ee;height:100vh
 <div id="sidebar">
   <div class="sidebar-inner">
     <div class="s-logo"><span>🃏</span> Medien Memory</div>
-
     <div class="s-section">
       <div class="s-label">Anzahl Kärtchen</div>
       <button class="opt-btn" data-pairs="5">10 Kärtchen &nbsp;(5 Paare)</button>
@@ -157,7 +164,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4ee;height:100vh
       <button class="opt-btn" data-pairs="7">14 Kärtchen &nbsp;(7 Paare)</button>
       <button class="opt-btn" data-pairs="8">16 Kärtchen &nbsp;(8 Paare)</button>
     </div>
-
     <div class="s-section">
       <div class="s-label">Spielmodus</div>
       <button class="opt-btn selected" data-mode="bild-bild">🖼 Bild zu Bild</button>
@@ -227,11 +233,15 @@ const ITEMS = [
 
 ];
 
-// Tablet SVG icon for card back
-const TABLET_SVG = `<svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="4" width="38" height="44" rx="4" stroke="white" stroke-width="2.5"/><circle cx="26" cy="43" r="2.2" fill="white"/><rect x="13" y="9" width="26" height="28" rx="2" stroke="white" stroke-width="1.8"/></svg>`;
+const TABLET_BACK = `<svg class="back-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="7" y="3" width="38" height="46" rx="5" stroke="currentColor" stroke-width="2.8" fill="none"/>
+  <rect x="13" y="9" width="26" height="30" rx="2" stroke="currentColor" stroke-width="1.8" fill="currentColor" fill-opacity=".08"/>
+  <circle cx="26" cy="44" r="2.5" fill="currentColor"/>
+  <line x1="22" y1="6" x2="30" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>`;
 
 let pairs=6, mode='bild-bild';
-let flipped=[], matched=[], locked=false, total=0;
+let flipped=[], matched=[], locked=false;
 
 document.querySelectorAll('[data-pairs]').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('[data-pairs]').forEach(x=>x.classList.remove('selected'));
@@ -255,19 +265,21 @@ function startGame(){
   flipped=[]; matched=[]; locked=false;
   const sel = shuffle(ITEMS).slice(0,pairs);
   let cards=[];
+
   if(mode==='bild-bild'){
     sel.forEach(item=>{
-      cards.push({...item,type:'bild',uid:Math.random()});
-      cards.push({...item,type:'bild',uid:Math.random()});
+      // Bild-Bild: beide Karten zeigen Bild + Wort
+      cards.push({...item, type:'bild', showWord:true,  uid:Math.random()});
+      cards.push({...item, type:'bild', showWord:true,  uid:Math.random()});
     });
   } else {
     sel.forEach(item=>{
-      cards.push({...item,type:'bild',uid:Math.random()});
-      cards.push({...item,type:'wort',uid:Math.random()});
+      // Wort-Bild: Bildkarte ohne Text, Wortkarte nur Text
+      cards.push({...item, type:'bild', showWord:false, uid:Math.random()});
+      cards.push({...item, type:'wort', showWord:true,  uid:Math.random()});
     });
   }
   cards=shuffle(cards);
-  total=cards.length;
 
   const cols = pairs<=5?4:pairs<=6?4:pairs<=7?5:4;
   const board=document.getElementById('board');
@@ -279,20 +291,23 @@ function startGame(){
     el.className='card';
     el.dataset.pair=c.id;
 
-    const front = c.type==='bild'
-      ? `<img class="card-img" src="${c.img}" alt="${c.word}"><span class="card-word">${c.word}</span>`
-      : `<span class="card-word" style="font-size:15px;font-weight:700;color:#1a5210;padding:10px">${c.word}</span>`;
+    let frontContent;
+    if(c.type==='bild'){
+      // Bildkarte: Bild immer, Wort nur im Bild-Bild-Modus
+      frontContent = `<img class="card-img" src="${c.img}" alt="${c.word}">`;
+      if(c.showWord) frontContent += `<span class="card-word">${c.word}</span>`;
+    } else {
+      // Wortkarte: nur grosser Text, kein Bild
+      frontContent = `<span class="card-word" style="font-size:16px;padding:12px 6px;color:#1a5210">${c.word}</span>`;
+    }
 
     el.innerHTML=`
       <div class="card-inner">
         <div class="card-back">
-          <svg class="dot-pattern" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg">
-            <defs><pattern id="dp" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="1.8" fill="white"/></pattern></defs>
-            <rect width="100" height="118" fill="url(#dp)"/>
-          </svg>
-          <div class="card-back-icon">${TABLET_SVG}</div>
+          <div class="back-dots"></div>
+          ${TABLET_BACK}
         </div>
-        <div class="card-front">${front}</div>
+        <div class="card-front">${frontContent}</div>
       </div>`;
     el.addEventListener('click',()=>flip(el,c));
     board.appendChild(el);
@@ -321,7 +336,7 @@ function flip(el,c){
       setTimeout(()=>{
         a.el.classList.remove('flipped'); b.el.classList.remove('flipped');
         flipped=[]; locked=false;
-        setStatus('Weiter so!');
+        setStatus('');
       },1200);
     }
   } else {
@@ -330,7 +345,6 @@ function flip(el,c){
 }
 
 function setStatus(t){document.getElementById('status-bar').textContent=t}
-
 function enterFS(){
   document.getElementById('sidebar').classList.add('hidden');
   document.getElementById('exit-btn').style.display='block';
